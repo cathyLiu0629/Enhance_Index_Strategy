@@ -5,6 +5,7 @@ from jqdatasdk import *
 my_config = MyConfig()
 account,pw = my_config.get_jq_account()
 auth(account,pw)
+from dateutil.parser import parse
 
 class FilterStocks():
     '''
@@ -21,7 +22,7 @@ class FilterStocks():
         :param active_day: 过滤交易不足N日的股票
         '''
         self.__index = index
-        self.__date = date
+        self.__date = parse(date).date()
         self.__N = N
         self.__active_day = active_day
     @property
@@ -32,7 +33,7 @@ class FilterStocks():
             stock_list = get_index_stocks(self.__index,date = self.__date)
         #过滤st
         st_data = get_extras('is_st',stock_list,end_date=self.__date,count=1).iloc[0]
-        print(st_data)
+        #print(st_data)
         stock_list = st_data[st_data==False].index.tolist()
         stock_list = self.delete_stop(stock_list,self.__date)
         stock_list = self.delete_pause(stock_list,self.__date)
