@@ -14,7 +14,7 @@ class FilterStocks():
     2.过滤上市不足N个月
     3.过滤当月交易不超过N日的股票
     '''
-    def __init__(self,index,date,N,active_day):
+    def __init__(self,index,date,N=90,active_day=15):
         '''
         :param index: 'A'全市场
         :param date: 日期

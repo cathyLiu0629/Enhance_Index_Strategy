@@ -10,6 +10,16 @@ from get_stock import FilterStocks
 import jqfactor_analyzer
 import numpy as np
 
+def get_price_info(index,start,end):
+    trade_days = get_trade_days(start,end)
+    df_all = pd.DataFrame()
+    for day in trade_days:
+        input_day =day.strftime('%Y-%m-%d')
+        securities = FilterStocks(index,input_day).get_stocks
+        df = get_price(securities,input_day,input_day,frequency='daily',fields=['open','close','low','high','volume','open_interest'],panel=False)
+        df_all = pd.concat([df_all,df])
+    return df_all
+
 
 def get_trade_period(start_date,end_date,freq):
     """
@@ -80,6 +90,6 @@ def market_cap(securities,date):
     print(df)
     df.set_index('code',inplace=True)
     return df
-securities = FilterStocks('A','2022-03-07',N=12,active_day=15).get_stocks
 
-industry(securities,'2022-03-07')
+
+print(get_price_info('000300.XSHG','2020-01-01','2020-02-28'))

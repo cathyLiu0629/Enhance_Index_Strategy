@@ -4,8 +4,8 @@ import scipy.stats as st
 
 #获取下一期的收益率
 def get_next_return(factor_df, keep_last_term, next_date) -> pd.Series:
-    securities = factor_df.index.level[1].tolist()
-    periods = [i.strftime('%Y-%m-%d') for i in factor_df.index.level[0].tolist()]
+    securities = factor_df.index.levels[1].tolist()
+    periods = [i.strftime('%Y-%m-%d') for i in factor_df.index.levels[0].tolist()]
     if keep_last_term:
         end = next_date
         periods.append(end)
@@ -14,11 +14,12 @@ def get_next_return(factor_df, keep_last_term, next_date) -> pd.Series:
     close = pd.pivot_table(close, index = 'time', columns = 'code',values = 'close')
     ret = close.pct_change().shift(-1)
     ret = ret.iloc[:-1]
-    return ret
+
+    return ret.stack()
 
 def calc_rank_IC(factor_df):
     factor_col = [i for i in factor_df.columns if i not in ['INDUSTRY_CODE','market_cap','NEXT_RET']]
-    IC = factor_df.groupby(level='date').apply(lambda x:[st.spearmanr(x[factor_name],x['NEXT_RETURN'])[0]for factor_name in factor_col])
+    IC = factor_df.groupby(level='date').apply(lambda x:[st.spearmanr(x[factor_name],x['NEXT_RET'])[0]for factor_name in factor_col])
     print('IC：{}'.format(IC))
     return pd.DataFrame(IC.tolist(), index = IC.index, columns=factor_col)
 
@@ -32,4 +33,5 @@ def IR_weight(factor):
     print('IR:{}'.format(IR))
     IR.iloc[0,:] = rolling_IC.iloc[0,:]
     weight = IR.div(IR.sum(axis=1),axis=0)
+    print(weight)
     return weight
