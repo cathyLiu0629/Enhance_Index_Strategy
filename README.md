@@ -114,13 +114,13 @@ import 上述各个模块中的功能函数，依次运行
 	𝑚𝑎𝑥(𝑟<sup>𝑇</sup>𝑤)
  
 约束条件：
-	𝑠<sub>𝑙<sub>⩽𝑋(𝑤−𝑤<sub>𝑏</sub>)⩽𝑠<sub>ℎ</sub>
+	𝑠<sub>𝑙</sub>⩽𝑋(𝑤−𝑤<sub>𝑏</sub>)⩽𝑠<sub>ℎ</sub>
  
-	ℎ<sub>𝑙<sub>⩽𝐻(𝑤−𝑤<sub>𝑏</sub>)⩽ℎ<sub>ℎ</sub>
+	ℎ<sub>𝑙</sub>⩽𝐻(𝑤−𝑤<sub>𝑏</sub>)⩽ℎ<sub>ℎ</sub>
  
-	𝑤<sub>𝑙<sub>⩽𝑤−𝑤<sub>𝑏</sub>⩽𝑤<sub>ℎ</sub>
+	𝑤<sub>𝑙</sub>⩽𝑤−𝑤<sub>𝑏</sub>⩽𝑤<sub>ℎ</sub>
  
-	𝑏<sub>𝑙<sub>⩽𝐵<sub>𝑏</sub>𝑤⩽𝑏<sub>ℎ</sub>
+	𝑏<sub>𝑙</sub>⩽𝐵<sub>𝑏</sub>𝑤⩽𝑏<sub>ℎ</sub>
  
 	0⩽𝑤⩽𝑙
  
